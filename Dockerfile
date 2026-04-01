@@ -6,12 +6,17 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+# Don't use NODE_ENV=production here to install all dependencies
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --include=dev
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+# Set NODE_ENV to development to ensure devDependencies are available for build
+ENV NODE_ENV=development
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
