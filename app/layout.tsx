@@ -1,0 +1,32 @@
+import type { Metadata } from 'next'
+import { Playfair_Display, Inter } from 'next/font/google'
+import './globals.css'
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+export const metadata: Metadata = {
+  title: 'Alexis Guerrero | Propuesta Funcional de Plataforma',
+  description: 'Propuesta funcional de plataforma digital para gestión de clientas',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="es" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
+    </html>
+  )
+}
